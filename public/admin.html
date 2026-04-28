@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NationsCupfy Admin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>NationsCupfy Admin</h1>
+      <p class="muted">Single-admin login with Firebase magic link.</p>
+
+      <section class="card" id="authCard">
+        <h2>Admin Login</h2>
+        <form id="sendLinkForm">
+          <label>Email</label>
+          <input id="emailInput" type="email" required />
+          <button type="submit">Send Magic Link</button>
+        </form>
+        <p id="authStatus" class="muted"></p>
+      </section>
+
+      <section class="card hidden" id="adminPanel">
+        <div class="row between">
+          <h2>Manage Tournament</h2>
+          <button id="logoutBtn" class="secondary">Logout</button>
+        </div>
+
+        <form id="tournamentForm" class="form-grid">
+          <h3>Tournament</h3>
+          <input id="tournamentName" placeholder="Tournament name" required />
+          <input id="tournamentSeason" placeholder="Season (e.g. 2026)" required />
+          <button type="submit">Save Tournament</button>
+        </form>
+
+        <form id="teamForm" class="form-grid">
+          <h3>Add Team</h3>
+          <input id="teamName" placeholder="Team name" required />
+          <input id="teamCode" placeholder="Team code (e.g. BRA)" required />
+          <button type="submit">Add Team</button>
+        </form>
+
+        <form id="playerForm" class="form-grid">
+          <h3>Add Player</h3>
+          <input id="playerName" placeholder="Player name" required />
+          <input id="playerTeam" placeholder="Team code (e.g. BRA)" required />
+          <input id="playerNumber" type="number" placeholder="Number" required />
+          <button type="submit">Add Player</button>
+        </form>
+
+        <form id="groupForm" class="form-grid">
+          <h3>Add/Update Group Row</h3>
+          <input id="groupName" placeholder="Group (A, B...)" required />
+          <input id="groupTeamCode" placeholder="Team code" required />
+          <input id="played" type="number" placeholder="P" required />
+          <input id="won" type="number" placeholder="W" required />
+          <input id="draw" type="number" placeholder="D" required />
+          <input id="lost" type="number" placeholder="L" required />
+          <input id="gf" type="number" placeholder="GF" required />
+          <input id="ga" type="number" placeholder="GA" required />
+          <input id="pts" type="number" placeholder="Pts" required />
+          <button type="submit">Save Group Row</button>
+        </form>
+
+        <form id="matchForm" class="form-grid">
+          <h3>Add Match</h3>
+          <input id="homeTeam" placeholder="Home code" required />
+          <input id="awayTeam" placeholder="Away code" required />
+          <input id="matchGroup" placeholder="Group (A/B...)" required />
+          <input id="kickoff" type="datetime-local" required />
+          <button type="submit">Add Match</button>
+        </form>
+
+        <form id="scoreForm" class="form-grid">
+          <h3>Update Score</h3>
+          <input id="matchId" placeholder="Match document ID" required />
+          <input id="homeScore" type="number" placeholder="Home score" required />
+          <input id="awayScore" type="number" placeholder="Away score" required />
+          <select id="matchStatus" required>
+            <option value="scheduled">scheduled</option>
+            <option value="live">live</option>
+            <option value="finished">finished</option>
+          </select>
+          <button type="submit">Update Score</button>
+        </form>
+
+        <div class="card-sub">
+          <h3>Recent Matches (ID reference)</h3>
+          <ul id="recentMatches"></ul>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
