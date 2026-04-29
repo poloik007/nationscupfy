@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation';
 
 const NAV = [
   { href: '', label: '⚙️ Settings' },
-  { href: '/teams', label: '👕 Teams' },
   { href: '/groups', label: '🗂 Groups' },
+  { href: '/teams', label: '👕 Teams' },
+  { href: '/referees', label: '🎽 Referees' },
   { href: '/matches', label: '📅 Matches' },
   { href: '/scores', label: '⚽ Enter Scores' },
-  { href: '/referees', label: '🎽 Referees' },
 ];
 
 export default function TournamentAdminLayout({ children, params }) {
