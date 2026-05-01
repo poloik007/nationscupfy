@@ -4,6 +4,10 @@ import { usePathname } from 'next/navigation';
 import { signOutUser } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 
+import { useState, useEffect } from 'react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
 const NAV = [
   { href: '', label: '⚙️ Settings' },
   { href: '/groups', label: '🗂 Groups' },
@@ -16,11 +20,21 @@ const NAV = [
 export default function TournamentAdminLayout({ children, params }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [slug, setSlug] = useState('');
 
-  // params is a Promise in this Next.js version — but layout receives it resolved via children
-  // We extract id from the pathname instead
+  // Extract ID from pathname: /admin/tournaments/[id]/...
   const id = pathname.split('/')[3];
   const base = `/admin/tournaments/${id}`;
+
+  useEffect(() => {
+    if (!id) return;
+    const unsub = onSnapshot(doc(db, 'tournaments', id), (snap) => {
+      if (snap.exists()) {
+        setSlug(snap.data().slug || '');
+      }
+    });
+    return () => unsub();
+  }, [id]);
 
   async function handleSignOut() {
     await signOutUser();
@@ -60,7 +74,7 @@ export default function TournamentAdminLayout({ children, params }) {
           </div>
           <div style={{ padding: '0 20px', marginTop: 8 }}>
             <Link
-              href={`/live/${id}`}
+              href={`/live/${slug || id}`}
               target="_blank"
               className="btn btn-secondary btn-sm"
               style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}
